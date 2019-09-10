@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+}
+
+
+
+<div class="crumb_nav"> <a href="@Url.Action("Index","Home")">home</a> &gt;&gt; @ViewBag.category.name </div>
+<div class="title"><span class="title_icon"><img src="~/Content/User/images/bullet1.gif" alt=""></span>Category products</div>
+<div class="new_products">
+
+    @foreach(var product in ViewBag.products)
+    {
+            <div class="new_prod_box">
+                <a href="@Url.Action("Details", "Product", new { id = product.id })">@product.name</a>
+        <div class="new_prod_bg"> <a href="@Url.Action("Details", "Product", new { id = product.id })"><img src="~/Content/User/images/@product.photo" alt="" class="thumb" border="0"></a> </div>
+    </div>
+
+        
+    }
+    @*<div class="new_prod_box">
+        <a href="#">product name</a>
+        <div class="new_prod_bg"> <a href="#"><img src="~/Content/User/images/thumb1.gif" alt="" class="thumb" border="0"></a> </div>
+    </div>*@
+
+    @*<div class="pagination"> <span class="disabled">&lt;&lt;</span><span class="current">1</span><a href="#">2</a><a href="#">3</a>. . .<a href="#">10</a><a href="#">11</a><a href="#">&gt;&gt;</a> </div>*@
+   </div>
+<div class="clear"></div>
+

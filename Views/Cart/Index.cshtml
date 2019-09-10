@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+}
+
+@using Task2.Models
+
+
+<div class="title"><span class="title_icon"><img src="~/Content/User/images/bullet1.gif" alt=""></span>My cart</div>
+<div class="feat_prod_box_details">
+    <table class="cart_table">
+        <tbody>
+            <tr class="cart_title">
+                <td>Option</td>
+                <td>Item pic</td>
+                <td>Product name</td>
+                <td>Unit price</td>
+                <td>Qty</td>
+                <td>Total</td>
+            </tr>
+        
+            @{int Index = 0;}
+            @if (Session["cart"] != null)
+            { 
+                foreach (var item in (List<Item>)Session["cart"])
+                { 
+                    <tr>
+                        <td><a href="@Url.Action("Delete", "Cart", new { id = Index })">x</a></td>
+                        <td><a href="@Url.Action("Details", "Product", new { id = item.product.id })"><img src="~/Content/User/images/@item.product.photo" alt="" class="cart_thumb" border="0"></a></td>
+                        <td>@item.product.name</td>
+                        <td>@item.product.price$</td>
+                        <td>@item.quantity</td>
+                        <td>@(item.product.price * item.quantity )$</td>
+                    </tr>
+                        Index++;
+                    }
+            }
+
+
+            <tr>
+                <td colspan="4" class="cart_total"><span class="red">TOTAL:</span></td>
+                <td>
+                @{
+                    decimal s = 0;
+                    if (Session["cart"] != null) { 
+                    List<Item> cart = (List<Item>)Session["cart"];
+                    s = cart.Sum(i => i.quantity  *  i.product.price).Value;
+                        }
+                } 
+                @s$</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="@Url.Action("Index", "Home")" class="continue">&lt; continue</a> <a href="@Url.Action("Checkout", "Cart")" class="checkout">checkout &gt;</a>
+</div>
+<div class="clear"></div>
+
